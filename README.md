@@ -14,6 +14,10 @@ encrypt_str.py
     md5 及 hash 加密
 ```
 ```
+jwt_auth.py
+    jwt 编码 及 解码
+```
+```
 operate_csv_file.py
     读写 csv 文件
 ```
