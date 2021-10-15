@@ -10,6 +10,8 @@ def main_func():
 
 # ========================= cron定时调度（某一定时时刻执行）=================================== #
 """
+https://apscheduler.readthedocs.io/en/3.x/modules/triggers/cron.html#module-apscheduler.triggers.cron
+
     (int|str) 表示参数既可以是int类型，也可以是str类型
     (datetime | str) 表示参数既可以是datetime类型，也可以是str类型
     year (int|str) – 4-digit year -（表示四位数的年份，如2008年）
