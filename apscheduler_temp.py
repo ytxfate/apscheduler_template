@@ -29,6 +29,10 @@ https://apscheduler.readthedocs.io/en/3.x/modules/triggers/cron.html#module-apsc
 #表示2017年3月22日17时19分07秒执行该程序
 scheduler.add_job(main_func, 'cron', year=2017, month=3, day=22, hour=17, minute=19, second=7)
 
+# 特殊 cron 执行示例
+# scheduler.add_job(main_func, "cron", day="2-7", hour=7) # 每月 2 至 7 日 7 点执行
+# scheduler.add_job(main_func, "cron", hour="8-22", minute="0,10,20,30,40,50") # 每天 8-22 点每 10 分钟执行一次
+
 # ============================ interval 间隔调度（每隔多久执行）================================ #
 """
     weeks (int) – number of weeks to wait
