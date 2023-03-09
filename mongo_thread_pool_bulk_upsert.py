@@ -30,6 +30,7 @@ def mongo_thread_pool_bulk_upsert(
     db_mongo: Database,
     coll_name: str,
     max_workers: int=5,
+    bulk_num: int=500,
     ordered: bool=True
 ):
     """线程池批量更新MongoDB数据
@@ -41,6 +42,7 @@ def mongo_thread_pool_bulk_upsert(
         db_mongo        : pymongo.database.Database
         coll_name       : 需要更新的表名
         max_workers     : 最大线程池数量, 默认 5
+        bulk_num        : 批量执行更新的数量, 默认 500
         ordered         : 是否按顺序执行 (经测试影响不大)
     """
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
@@ -48,7 +50,7 @@ def mongo_thread_pool_bulk_upsert(
         for usd in upsert_datas:
             us_obj = dict([(k, usd[k]) for k in update_keys])
             upsert_list.append(UpdateOne(filter=us_obj, update={'$set': usd}, upsert=True))
-            if len(upsert_list) >= 500:
+            if len(upsert_list) >= bulk_num:
                 pool.submit(__bulk_upsert_one, db_mongo, coll_name, upsert_list, ordered)
                 upsert_list = []
         if upsert_list:
