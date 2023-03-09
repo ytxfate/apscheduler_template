@@ -9,16 +9,19 @@
 # Standard library imports
 from typing import Generator
 from concurrent.futures.thread import ThreadPoolExecutor
+import logging
 # from queue import Queue
 # Third party imports
 from pymongo import UpdateOne
 from pymongo.database import Database
 # Local application imports
 
+logger = logging.getLogger(__name__)
 
 
 def __bulk_upsert_one(db_mongo, coll_name, mutl_task, ordered=True):
-    db_mongo[coll_name].bulk_write(mutl_task, ordered=ordered)
+    res = db_mongo[coll_name].bulk_write(mutl_task, ordered=ordered)
+    logger.info(f"inserted_count: {res.inserted_count},  matched_count: {res.matched_count},  modified_count: {res.modified_count},  deleted_count: {res.deleted_count},  upserted_count: {res.upserted_count}")
 
 
 def mongo_thread_pool_bulk_upsert(
